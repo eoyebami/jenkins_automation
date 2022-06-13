@@ -1,6 +1,6 @@
 #!/bin/bash
 
-        #Author : Excellent 
+        #Author : Excellent
         #Date : 12-Jun-2022
 
 ##-------------- Installing Jenkins -----------------
@@ -114,26 +114,47 @@ fi
 sleep 3
 
 #adjust firewall
+echo "Activating Firewalld, Please wait ...."
+systemctl start firewalld
+if [ $? -eq 0 ]
+        then
+        sleep 2
+        echo "Firewalld is active(running)"
+        else
+        sleep 2
+        echo "Firewalld is not active(not running)"
+fi
+sleep 3
+echo "Enabling Firwalld, Please wait ...."
+systemctl enable firewalld
+if [ $? -eq 0 ]
+        then
+        sleep 2
+        echo "Firewalld is enabled on system"
+        else
+        sleep 2
+        echo "Firewalld is not enabled on system"
+fi
 echo "Adjusting firewall, Please wait ...."
 sleep 3
 firewall-cmd --permanent --zone=public --add-port=8080/tcp
 if [ $? -eq 0 ]
         then
         sleep 2
-        echo "Firewall has been Adjusted"
+        echo "Firewalld has been Adjusted"
         else
         sleep 2
-        echo "FirewallID is not running/No Firewall running on server"
+        echo "Firewalld has not been Adjusted"
 fi
 sleep 3
 firewall-cmd --reload
 if [ $? -eq 0 ]
         then
         sleep 2
-        echo "Firewall has been Adjusted"
+        echo "Firewalld has been Adjusted"
         else
         sleep 2
-        echo "FirewallID is not running/No Firewall running on server"
+        echo "Firewalld has not been Adjusted"
 fi
 sleep 3
 #admin passwd
